@@ -17,6 +17,10 @@ abstract class RestJsonTingClientRequest extends HttpTingClientRequest
     {
       throw new TingClientException('Unable to decode response as JSON: '.$responseString);
     }
+    // Check if response is containing an error, then throw an exception, to prevent browser from vomit
+    if (is_object($response) && is_object($response->searchResponse->error)) {
+      throw new TingClientException('Unexpected JSON reponse - Error located: ' . $responseString);
+    }
     if (!is_object($response))
     {
       throw new TingClientException('Unexpected JSON response: '.var_export($response, true));
