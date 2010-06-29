@@ -29,8 +29,16 @@ class RestJsonTingClientObjectRequest extends RestJsonTingClientRequest
 		
 		function setLocalId($localId)
 		{
-			$this->localId = $localId;
+		  $this->localId = $localId;
 		}
+		function setISBN($isbn)
+    {
+      $this->isbn = $isbn;   
+    }
+    function getISBN()
+    {
+      return $this->isbn;
+    }
 		
 		function getAgency()
 		{
@@ -55,7 +63,9 @@ class RestJsonTingClientObjectRequest extends RestJsonTingClientRequest
 				//TODO: Update to support complete faust numbers (local id and owner id) 
 				$request->setQuery('rec.id:'.$localId);
 			}
-			
+			elseif ($isbn = $this->getISBN()){
+        $request->setQuery('dc.identifier:'.$isbn);
+      }			
 			//transfer agency from object to search request
 			if ($agency = $this->getAgency()) {
 				$request->setAgency($agency);

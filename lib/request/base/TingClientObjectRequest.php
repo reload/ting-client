@@ -12,5 +12,10 @@ interface TingClientObjectRequest extends TingClientAgentRequest
 		function getLocalId();
 		
 		function setLocalId($id);
+  
+    function setISBN($isbn);
+
+    function getISBN();
+		
 		
 }
